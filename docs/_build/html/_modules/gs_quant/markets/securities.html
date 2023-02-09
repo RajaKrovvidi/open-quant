@@ -154,7 +154,7 @@
 <span class="kn">import</span> <span class="nn">pytz</span>
 <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span>
 
-<span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">GsAssetApi</span><span class="p">,</span> <span class="n">GsAsset</span><span class="p">,</span> <span class="n">AssetClass</span><span class="p">,</span> <span class="n">AssetParameters</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">OqAssetApi</span><span class="p">,</span> <span class="n">OqAsset</span><span class="p">,</span> <span class="n">AssetClass</span><span class="p">,</span> <span class="n">AssetParameters</span><span class="p">,</span> \
     <span class="n">AssetType</span> <span class="k">as</span> <span class="n">GsAssetType</span><span class="p">,</span> <span class="n">PositionSet</span><span class="p">,</span> <span class="n">Currency</span>
 <span class="kn">from</span> <span class="nn">gs_quant.base</span> <span class="kn">import</span> <span class="n">get_enum_value</span>
 <span class="kn">from</span> <span class="nn">gs_quant.common</span> <span class="kn">import</span> <span class="n">PositionType</span>
@@ -345,7 +345,7 @@
                 <span class="n">as_of</span> <span class="o">=</span> <span class="n">as_of</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 
         <span class="n">valid_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">AssetIdentifier</span><span class="p">)</span>
-        <span class="n">xrefs</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset_xrefs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">)</span>
+        <span class="n">xrefs</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset_xrefs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">)</span>
         <span class="n">identifiers</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">xref</span> <span class="ow">in</span> <span class="n">xrefs</span><span class="p">:</span>
@@ -906,7 +906,7 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">as_of</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
                 <span class="n">as_of</span> <span class="o">=</span> <span class="n">as_of</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset_positions_for_date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">,</span> <span class="n">as_of</span><span class="p">,</span> <span class="n">position_type</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset_positions_for_date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">,</span> <span class="n">as_of</span><span class="p">,</span> <span class="n">position_type</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Index"><a class="viewcode-back" href="../../../classes/gs_quant.markets.securities.Index.html#gs_quant.markets.securities.Index">[docs]</a><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Asset</span><span class="p">,</span> <span class="n">IndexConstituentProvider</span><span class="p">):</span>
@@ -999,7 +999,7 @@
 <span class="sd">     &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">__gs_asset_to_asset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">gs_asset</span><span class="p">:</span> <span class="n">GsAsset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Asset</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__gs_asset_to_asset</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">gs_asset</span><span class="p">:</span> <span class="n">OqAsset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Asset</span><span class="p">:</span>
         <span class="n">asset_type</span> <span class="o">=</span> <span class="n">gs_asset</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value</span>
         <span class="n">asset_entity</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">gs_asset</span><span class="o">.</span><span class="n">as_dict</span><span class="p">(),</span> <span class="bp">cls</span><span class="o">=</span><span class="n">JSONEncoder</span><span class="p">))</span>
 
@@ -1146,7 +1146,7 @@
             <span class="n">as_of</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">as_of</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">id_type</span> <span class="ow">is</span> <span class="n">AssetIdentifier</span><span class="o">.</span><span class="n">MARQUEE_ID</span><span class="p">:</span>
-            <span class="n">gs_asset</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset</span><span class="p">(</span><span class="n">id_value</span><span class="p">)</span>
+            <span class="n">gs_asset</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset</span><span class="p">(</span><span class="n">id_value</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__gs_asset_to_asset</span><span class="p">(</span><span class="n">gs_asset</span><span class="p">)</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="n">id_type</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">id_value</span><span class="p">}</span>
@@ -1158,13 +1158,13 @@
             <span class="n">query</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__asset_type_to_gs_types</span><span class="p">(</span><span class="n">asset_type</span><span class="p">)]</span>
 
         <span class="k">if</span> <span class="n">sort_by_rank</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_many_assets</span><span class="p">(</span><span class="n">as_of</span><span class="o">=</span><span class="n">as_of</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&gt;rank&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_many_assets</span><span class="p">(</span><span class="n">as_of</span><span class="o">=</span><span class="n">as_of</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&gt;rank&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">GsAsset</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">OqAsset</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_many_assets</span><span class="p">(</span><span class="n">as_of</span><span class="o">=</span><span class="n">as_of</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_many_assets</span><span class="p">(</span><span class="n">as_of</span><span class="o">=</span><span class="n">as_of</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">result</span><span class="p">:</span>

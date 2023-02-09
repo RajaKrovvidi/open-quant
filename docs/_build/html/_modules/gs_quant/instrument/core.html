@@ -141,8 +141,8 @@
 <span class="sd">specific language governing permissions and limitations</span>
 <span class="sd">under the License.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">gs_quant.api.gs.parser</span> <span class="kn">import</span> <span class="n">GsParserApi</span>
-<span class="kn">from</span> <span class="nn">gs_quant.api.gs.risk</span> <span class="kn">import</span> <span class="n">GsRiskApi</span>
+<span class="kn">from</span> <span class="nn">gs_quant.api.gs.parser</span> <span class="kn">import</span> <span class="n">OqParserApi</span>
+<span class="kn">from</span> <span class="nn">gs_quant.api.gs.risk</span> <span class="kn">import</span> <span class="n">OqRiskApi</span>
 <span class="kn">from</span> <span class="nn">gs_quant.base</span> <span class="kn">import</span> <span class="n">get_enum_value</span><span class="p">,</span> <span class="n">InstrumentBase</span><span class="p">,</span> <span class="n">QuotableBuilder</span>
 <span class="kn">from</span> <span class="nn">gs_quant.common</span> <span class="kn">import</span> <span class="n">AssetClass</span><span class="p">,</span> <span class="n">AssetType</span><span class="p">,</span> <span class="n">XRef</span>
 <span class="kn">from</span> <span class="nn">gs_quant.context_base</span> <span class="kn">import</span> <span class="n">do_not_serialise</span>
@@ -150,7 +150,7 @@
 <span class="kn">from</span> <span class="nn">gs_quant.priceable</span> <span class="kn">import</span> <span class="n">PriceableImpl</span>
 <span class="kn">from</span> <span class="nn">gs_quant.risk</span> <span class="kn">import</span> <span class="n">FloatWithInfo</span><span class="p">,</span> <span class="n">DataFrameWithInfo</span><span class="p">,</span> <span class="n">SeriesWithInfo</span><span class="p">,</span> <span class="n">ResolvedInstrumentValues</span><span class="p">,</span> <span class="n">RiskMeasure</span>
 <span class="kn">from</span> <span class="nn">gs_quant.risk.results</span> <span class="kn">import</span> <span class="n">ErrorValue</span><span class="p">,</span> <span class="n">MultipleRiskMeasureFuture</span><span class="p">,</span> <span class="n">PricingFuture</span>
-<span class="kn">from</span> <span class="nn">gs_quant.session</span> <span class="kn">import</span> <span class="n">GsSession</span>
+<span class="kn">from</span> <span class="nn">gs_quant.session</span> <span class="kn">import</span> <span class="n">OqSession</span>
 
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span>
 <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
@@ -162,7 +162,7 @@
 
 
 <span class="k">class</span> <span class="nc">Instrument</span><span class="p">(</span><span class="n">PriceableImpl</span><span class="p">,</span> <span class="n">InstrumentBase</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
-    <span class="n">PROVIDER</span> <span class="o">=</span> <span class="n">GsRiskApi</span>
+    <span class="n">PROVIDER</span> <span class="o">=</span> <span class="n">OqRiskApi</span>
     <span class="n">__instrument_mappings</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -181,7 +181,7 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="n">GsSession</span><span class="o">.</span><span class="n">current_is_set</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">resolved</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">OqSession</span><span class="o">.</span><span class="n">current_is_set</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">resolved</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
                 <span class="n">resolved_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resolved_inst</span><span class="p">,</span> <span class="n">PricingFuture</span><span class="p">):</span>
@@ -369,13 +369,13 @@
                 <span class="k">pass</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">asset_class</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">GsParserApi</span><span class="o">.</span><span class="n">get_instrument_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">OqParserApi</span><span class="o">.</span><span class="n">get_instrument_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>  <span class="c1"># multiple instruments returned</span>
                 <span class="n">instrument</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not resolve instrument&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">instrument</span> <span class="o">=</span> <span class="n">GsParserApi</span><span class="o">.</span><span class="n">get_instrument_from_text_asset_class</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">asset_class</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">instrument</span> <span class="o">=</span> <span class="n">OqParserApi</span><span class="o">.</span><span class="n">get_instrument_from_text_asset_class</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">asset_class</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -383,8 +383,8 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_asset_ids</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">asset_ids</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">InstrumentBase</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">GsAssetApi</span>
-        <span class="n">instruments</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_asset_ids</span><span class="p">(</span><span class="n">asset_ids</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">OqAssetApi</span>
+        <span class="n">instruments</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_asset_ids</span><span class="p">(</span><span class="n">asset_ids</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">inst</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">default_instance</span><span class="p">()</span>

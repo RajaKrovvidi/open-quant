@@ -148,7 +148,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">GsAssetApi</span>
+<span class="kn">from</span> <span class="nn">gs_quant.api.gs.assets</span> <span class="kn">import</span> <span class="n">OqAssetApi</span>
 <span class="kn">from</span> <span class="nn">gs_quant.api.gs.portfolios</span> <span class="kn">import</span> <span class="n">GsPortfolioApi</span>
 <span class="kn">from</span> <span class="nn">gs_quant.context_base</span> <span class="kn">import</span> <span class="n">nullcontext</span>
 <span class="kn">from</span> <span class="nn">gs_quant.instrument</span> <span class="kn">import</span> <span class="n">Instrument</span>
@@ -327,19 +327,19 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_asset_id</span><span class="p">(</span><span class="n">asset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">asset</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset</span><span class="p">(</span><span class="n">asset_id</span><span class="p">)</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset_positions_for_date</span><span class="p">(</span><span class="n">asset_id</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span> <span class="k">if</span> <span class="n">date</span> <span class="k">else</span> \
-            <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_latest_positions</span><span class="p">(</span><span class="n">asset_id</span><span class="p">)</span>
+        <span class="n">asset</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset</span><span class="p">(</span><span class="n">asset_id</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset_positions_for_date</span><span class="p">(</span><span class="n">asset_id</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span> <span class="k">if</span> <span class="n">date</span> <span class="k">else</span> \
+            <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_latest_positions</span><span class="p">(</span><span class="n">asset_id</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">response</span>
         <span class="n">positions</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">positions</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">PositionSet</span><span class="p">)</span> <span class="k">else</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">]</span>
-        <span class="n">instruments</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_positions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+        <span class="n">instruments</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_positions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="n">instruments</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">asset</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">ret</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="n">asset_id</span>
         <span class="k">return</span> <span class="n">ret</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_asset_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">asset</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_asset_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">asset</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_asset_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Portfolio</span><span class="o">.</span><span class="n">load_from_portfolio_id</span><span class="p">(</span><span class="n">asset</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
@@ -349,7 +349,7 @@
             <span class="n">GsPortfolioApi</span><span class="o">.</span><span class="n">get_latest_positions</span><span class="p">(</span><span class="n">portfolio_id</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">response</span>
         <span class="n">positions</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">positions</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">PositionSet</span><span class="p">)</span> <span class="k">else</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;positions&#39;</span><span class="p">]</span>
-        <span class="n">instruments</span> <span class="o">=</span> <span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_positions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+        <span class="n">instruments</span> <span class="o">=</span> <span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_instruments_for_positions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="n">instruments</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">portfolio</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">ret</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="n">portfolio_id</span>
         <span class="k">return</span> <span class="n">ret</span>
@@ -387,7 +387,7 @@
 
         <span class="n">position_set</span> <span class="o">=</span> <span class="n">PositionSet</span><span class="p">(</span>
             <span class="n">position_date</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span>
-            <span class="n">positions</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">Position</span><span class="p">(</span><span class="n">asset_id</span><span class="o">=</span><span class="n">GsAssetApi</span><span class="o">.</span><span class="n">get_or_create_asset_from_instrument</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">positions</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">Position</span><span class="p">(</span><span class="n">asset_id</span><span class="o">=</span><span class="n">OqAssetApi</span><span class="o">.</span><span class="n">get_or_create_asset_from_instrument</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
                             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instruments</span><span class="p">))</span>
 
         <span class="n">GsPortfolioApi</span><span class="o">.</span><span class="n">update_positions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">,</span> <span class="p">(</span><span class="n">position_set</span><span class="p">,))</span>

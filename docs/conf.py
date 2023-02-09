@@ -96,7 +96,7 @@ html_translator_class = './_writers/html5'
 # a list of builtin themes.
 #
 # html_theme = 'sphinx_rtd_theme'
-html_theme = 'gs'
+html_theme = 'oq'
 html_theme_path = ['./_themes']
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -155,7 +155,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'gs_quant.tex', 'gs\\_quant Documentation Formatting',
+    (master_doc, 'gs_quant.tex', 'oq\\_quant Documentation Formatting',
      'Andy Phillips', 'manual'),
 ]
 

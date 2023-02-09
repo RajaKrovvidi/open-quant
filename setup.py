@@ -44,7 +44,7 @@ setuptools.setup(
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     author="Goldman Sachs",
-    author_email="developer@gs.com",
+    author_email="developer@oq.com",
     description="Goldman Sachs Quant",
     long_description=long_description,
     long_description_content_type="text/markdown",
