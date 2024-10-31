@@ -167,7 +167,7 @@
             <span class="n">is_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">is_batch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">use_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">visible_to_gs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">visible_to_sr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">csa_term</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">market_data_location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -183,7 +183,7 @@
 <span class="sd">        :param is_batch: use for calculations expected to run longer than 3 mins, to avoid timeouts.</span>
 <span class="sd">            It can be used with is_async=True|False (defaults to False)</span>
 <span class="sd">        :param use_cache: store results in the pricing cache (defaults to False)</span>
-<span class="sd">        :param visible_to_gs: are the contents of risk requests visible to GS (defaults to False)</span>
+<span class="sd">        :param visible_to_sr: are the contents of risk requests visible to GS (defaults to False)</span>
 <span class="sd">        :param csa_term: the csa under which the calculations are made. Default is local ccy ois index</span>
 <span class="sd">        :param market_data_location: the location for sourcing market data (&#39;NYC&#39;, &#39;LDN&#39; or &#39;HKG&#39; (defaults to LDN)</span>
 
@@ -197,7 +197,7 @@
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; price_series = price_f.result()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">is_async</span><span class="o">=</span><span class="n">is_async</span><span class="p">,</span> <span class="n">is_batch</span><span class="o">=</span><span class="n">is_batch</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span> <span class="n">visible_to_gs</span><span class="o">=</span><span class="n">visible_to_gs</span><span class="p">,</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">is_async</span><span class="o">=</span><span class="n">is_async</span><span class="p">,</span> <span class="n">is_batch</span><span class="o">=</span><span class="n">is_batch</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span> <span class="n">visible_to_sr</span><span class="o">=</span><span class="n">visible_to_sr</span><span class="p">,</span>
                          <span class="n">csa_term</span><span class="o">=</span><span class="n">csa_term</span><span class="p">,</span> <span class="n">market_data_location</span><span class="o">=</span><span class="n">market_data_location</span><span class="p">,</span>
                          <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -244,7 +244,7 @@
             <span class="n">is_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">is_batch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">use_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">visible_to_gs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">visible_to_sr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">csa_term</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">market_data_location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -262,7 +262,7 @@
 <span class="sd">        :param is_batch: use for calculations expected to run longer than 3 mins, to avoid timeouts.</span>
 <span class="sd">            It can be used with is_async=True|False (defaults to False)</span>
 <span class="sd">        :param use_cache: store results in the pricing cache (defaults to False)</span>
-<span class="sd">        :param visible_to_gs: are the contents of risk requests visible to GS (defaults to False)</span>
+<span class="sd">        :param visible_to_sr: are the contents of risk requests visible to GS (defaults to False)</span>
 <span class="sd">        :param csa_term: the csa under which the calculations are made. Default is local ccy ois index</span>
 <span class="sd">        :param market_data_location: the location for sourcing market data (&#39;NYC&#39;, &#39;LDN&#39; or &#39;HKG&#39; (defaults to LDN)</span>
 
@@ -277,7 +277,7 @@
 <span class="sd">        &gt;&gt;&gt; price_series = price_f.result()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">calendars</span><span class="o">=</span><span class="n">calendars</span><span class="p">,</span> <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
-                         <span class="n">is_async</span><span class="o">=</span><span class="n">is_async</span><span class="p">,</span> <span class="n">is_batch</span><span class="o">=</span><span class="n">is_batch</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span> <span class="n">visible_to_gs</span><span class="o">=</span><span class="n">visible_to_gs</span><span class="p">,</span>
+                         <span class="n">is_async</span><span class="o">=</span><span class="n">is_async</span><span class="p">,</span> <span class="n">is_batch</span><span class="o">=</span><span class="n">is_batch</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span> <span class="n">visible_to_sr</span><span class="o">=</span><span class="n">visible_to_sr</span><span class="p">,</span>
                          <span class="n">csa_term</span><span class="o">=</span><span class="n">csa_term</span><span class="p">,</span> <span class="n">market_data_location</span><span class="o">=</span><span class="n">market_data_location</span><span class="p">,</span>
                          <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="n">show_progress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_roll_to_fwds</span> <span class="o">=</span> <span class="n">roll_to_fwds</span>

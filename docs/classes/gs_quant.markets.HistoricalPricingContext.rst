@@ -37,6 +37,6 @@
       ~HistoricalPricingContext.pricing_date
       ~HistoricalPricingContext.prior_context
       ~HistoricalPricingContext.use_cache
-      ~HistoricalPricingContext.visible_to_gs
+      ~HistoricalPricingContext.visible_to_sr
    
    
